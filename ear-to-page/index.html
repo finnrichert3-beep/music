@@ -213,6 +213,119 @@ footer{margin-top:72px;padding-top:26px;border-top:1px solid var(--rule);display
 footer p{font-size:.83rem;color:var(--muted);max-width:58ch}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap}
 </style>
+<style>
+/* ---------- practice log + insights (extends the tokens above) ---------- */
+.lg-form{display:flex;flex-direction:column;gap:18px;margin-top:16px}
+.lg-row{display:flex;flex-wrap:wrap;gap:12px 14px;align-items:flex-end}
+.lg-field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.lg-field.grow{flex:1 1 160px}
+.lg-field>label,.lg-lbl{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+.lg-in{font:16px/1.3 var(--f-body);padding:9px 11px;min-height:44px;border:1px solid var(--rule-strong);border-radius:8px;background:var(--surface);color:var(--ink);width:100%}
+.lg-in.num{width:92px}
+.lg-in:focus{outline:2px solid var(--accent);outline-offset:1px}
+textarea.lg-in{min-height:84px;resize:vertical}
+.lg-chips{display:flex;flex-wrap:wrap;gap:8px}
+button.lg-chip{min-height:40px;min-width:44px;padding:8px 13px;border-radius:999px;background:var(--surface);color:var(--ink-2);border:1px solid var(--rule-strong);font-size:.88rem;font-weight:600;line-height:1.1}
+button.lg-chip:hover{filter:none;border-color:var(--accent);color:var(--ink)}
+button.lg-chip[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+button.lg-chip:disabled{opacity:.45;cursor:not-allowed}
+button.lg-chip.ok{border-color:var(--done);color:var(--done)}
+button.lg-chip.bad{border-color:var(--accent);color:var(--accent)}
+.lg-panel{border:1px solid var(--rule);border-radius:10px;padding:16px;background:var(--surface-2);display:flex;flex-direction:column;gap:14px}
+.lg-panel h3{font-size:1rem}
+.card .lg-hint,.lg-hint{font-size:.82rem;color:var(--muted);margin:0}
+.lg-pills{display:flex;flex-wrap:wrap;gap:6px;min-height:28px;align-items:center}
+button.lg-pill{padding:4px 10px;border-radius:999px;font-size:.78rem;font-weight:600;border:1px solid var(--rule-strong);background:var(--surface);color:var(--ink-2)}
+button.lg-pill.clean{border-color:var(--done);color:var(--done)}
+button.lg-pill.brk{border-color:var(--accent);color:var(--accent)}
+button.lg-pill:hover{filter:none;text-decoration:line-through}
+.lg-pend{display:flex;flex-direction:column;gap:6px}
+.lg-pend:empty{display:none}
+.lg-pend div{font-size:.86rem;color:var(--ink-2);background:var(--surface);border:1px solid var(--rule);border-radius:8px;padding:8px 10px}
+button.lg-ghost{background:transparent;color:var(--ink-2);border-color:var(--rule-strong);min-height:44px}
+button.lg-ghost:hover{filter:none;border-color:var(--accent);color:var(--accent)}
+button.lg-ghost.armed{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+button.lg-save{min-height:48px;font-size:1rem;width:100%}
+.card .lg-err,.lg-err{color:var(--accent);font-size:.88rem;font-weight:600;margin:0;min-height:0}
+.lg-err:empty{display:none}
+.lg-list{list-style:none;margin:10px 0 0;padding:0}
+.lg-list li{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--rule);font-size:.9rem;color:var(--ink-2)}
+.lg-list li:first-child{border-top:0}
+.lg-list .lg-sum{flex:1;min-width:0;overflow-wrap:anywhere}
+.lg-list .lg-sum b{color:var(--ink)}
+.lg-list button{padding:6px 10px;min-height:36px}
+.lg-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.lg-btns button{min-height:44px}
+.lg-json{margin-top:12px;font-family:var(--f-mono);font-size:13px}
+.lg-import{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.lg-import input[type="file"]{font:inherit;font-size:.88rem;color:var(--ink-2);max-width:100%}
+.lg-danger{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:16px;padding-top:14px;border-top:1px solid var(--rule)}
+.card .lg-danger span,.lg-danger span{font-size:.82rem;color:var(--muted)}
+.lg-drawlog{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid var(--rule)}
+.lg-drawmsg{font-size:.82rem;color:var(--muted)}
+.lg-toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translate(-50%,16px);opacity:0;visibility:hidden;z-index:50;display:flex;gap:12px;align-items:center;max-width:calc(100% - 32px);padding:10px 12px 10px 16px;border-radius:10px;background:var(--ink);color:var(--surface);font-size:.9rem;font-weight:600;box-shadow:var(--shadow);transition:opacity .2s,transform .2s,visibility 0s .2s}
+.lg-toast.show{opacity:1;visibility:visible;transform:translate(-50%,0);transition:opacity .2s,transform .2s}
+.lg-toast button{background:transparent;border:1px solid var(--surface);color:var(--surface);padding:6px 10px;min-height:36px}
+.lg-toast button:hover{filter:none}
+
+.lg-tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:16px}
+@media (min-width:760px){.lg-tiles{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.lg-tile{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:14px 16px;box-shadow:var(--shadow);min-width:0}
+.lg-tile .k{display:block;font-family:var(--f-mono);font-size:.64rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+.lg-tile .v{display:block;font-family:var(--f-display);font-size:1.7rem;line-height:1.1;margin-top:6px;font-variant-numeric:tabular-nums}
+.lg-tile .s{display:block;font-size:.8rem;color:var(--muted);margin-top:4px}
+.lg-tile.good{border-color:var(--done);background:var(--done-soft)}
+.lg-tile.warn{border-color:var(--accent-line);background:var(--accent-soft)}
+.in-next{margin:10px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;counter-reset:n}
+.in-next li{position:relative;padding:10px 12px 10px 42px;border:1px solid var(--rule);border-radius:8px;background:var(--surface-2);font-size:.92rem;color:var(--ink-2)}
+.in-next li::before{counter-increment:n;content:counter(n);position:absolute;left:12px;top:10px;width:20px;height:20px;border-radius:50%;background:var(--accent);color:var(--surface);font-size:.72rem;font-weight:700;display:grid;place-items:center}
+.in-next li.calm::before{background:var(--done)}
+.in-next b{display:block;color:var(--ink)}
+.in-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.in-h h3{margin:0}
+.card .in-cap,.in-cap{font-size:.82rem;color:var(--muted);margin:8px 0 0}
+.lg-chart{display:block;width:100%;height:auto;overflow:visible}
+.lg-chart .grid{stroke:var(--rule);stroke-width:1}
+.lg-chart .axis{stroke:var(--rule-strong);stroke-width:1}
+.lg-chart .ref{stroke:var(--ink-2);stroke-width:1.5;stroke-dasharray:5 4}
+.lg-chart .bar{fill:var(--accent)}
+.lg-chart .bar.dim{fill:var(--accent-line)}
+.lg-chart .l1{fill:none;stroke:var(--accent);stroke-width:2}
+.lg-chart .l2{fill:none;stroke:var(--ink-2);stroke-width:2;stroke-dasharray:6 4}
+.lg-chart .d1{fill:var(--accent);stroke:var(--surface);stroke-width:2}
+.lg-chart .d2{fill:var(--ink-2);stroke:var(--surface);stroke-width:2}
+.lg-chart text{fill:var(--muted);font-family:var(--f-body);font-size:11px}
+.lg-chart text.strong{fill:var(--ink);font-weight:600}
+.lg-chart .hit{fill:transparent}
+.in-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.8rem;color:var(--ink-2);margin-bottom:6px}
+.in-legend i{display:inline-block;width:18px;height:0;border-top:2px solid var(--accent);vertical-align:middle;margin-right:6px}
+.in-legend i.dash{border-top:2px dashed var(--ink-2)}
+.in-bars{display:flex;flex-direction:column;gap:8px}
+.in-bars h4{font-family:var(--f-mono);font-size:.64rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:400;margin:10px 0 0}
+.in-bar{display:grid;grid-template-columns:minmax(52px,auto) 1fr auto;gap:10px;align-items:center;font-size:.86rem;color:var(--ink-2)}
+.in-bar .tr{height:8px;border-radius:99px;background:var(--rule);overflow:hidden}
+.in-bar .tr i{display:block;height:100%;background:var(--done);border-radius:99px}
+.in-bar .n{font-variant-numeric:tabular-nums;color:var(--ink);font-weight:600;white-space:nowrap}
+.in-fail{list-style:none;margin:6px 0 0;padding:0}
+.in-fail li{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-top:1px solid var(--rule);font-size:.88rem;color:var(--ink-2)}
+.in-fail li:first-child{border-top:0}
+.in-flag{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent-line);background:var(--accent-soft);border-radius:99px;padding:2px 8px;margin-left:6px;white-space:nowrap}
+.in-pace{list-style:none;margin:6px 0 0;padding:0}
+.in-pace li{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-top:1px solid var(--rule);font-size:.88rem;color:var(--ink-2)}
+.in-pace li:first-child{border-top:0}
+.in-pace .st{flex:0 0 auto;font-family:var(--f-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;border-radius:99px;padding:3px 8px;border:1px solid var(--done);color:var(--done);background:var(--done-soft)}
+.in-pace .st.no{border-color:var(--accent-line);color:var(--accent);background:var(--accent-soft)}
+.in-pace .st.na{border-color:var(--rule-strong);color:var(--muted);background:var(--surface-2)}
+.in-empty{font-size:.88rem;color:var(--muted)}
+.in-draw{display:flex;flex-direction:column;gap:12px}
+.in-draw .row{display:flex;justify-content:space-between;gap:10px;align-items:baseline;font-size:.9rem;color:var(--ink-2)}
+.in-draw .row b{font-family:var(--f-display);font-size:1.3rem;color:var(--ink);font-variant-numeric:tabular-nums}
+.in-meter{position:relative;height:10px;border-radius:99px;background:var(--rule)}
+.in-meter i{position:absolute;left:0;top:0;bottom:0;border-radius:99px;background:var(--done)}
+.in-meter i.low{background:var(--accent)}
+.in-meter s{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink);text-decoration:none}
+@media (prefers-reduced-motion:reduce){.lg-toast{transition:none}}
+</style>
 
 <div class="wrap">
 
@@ -292,6 +405,196 @@ footer p{font-size:.83rem;color:var(--muted);max-width:58ch}
     </div>
   </div>
 </section>
+
+<!-- ============ PRACTICE LOG ============ -->
+<section id="log">
+  <div class="sec-head">
+    <h2>Practice log</h2>
+    <p class="sec-note">Log what you did and how it went. Only minutes are required. Your last settings are filled in for you.</p>
+  </div>
+  <p class="note" id="lgStoreWarn" hidden>Storage is blocked in this browser, so the log will not be kept after you close the page. Use Export to save a copy.</p>
+  <form class="card lg-form" id="lgForm" novalidate>
+    <div class="lg-row">
+      <div class="lg-field"><label for="lgDate">Date</label><input class="lg-in" type="date" id="lgDate"></div>
+      <div class="lg-field"><label for="lgMin">Minutes</label><input class="lg-in num" type="number" id="lgMin" min="1" max="600" inputmode="numeric"></div>
+    </div>
+    <div class="lg-chips" role="group" aria-label="Quick minutes">
+      <button type="button" class="lg-chip" data-min="10">10</button><button type="button" class="lg-chip" data-min="20">20</button><button type="button" class="lg-chip" data-min="30">30</button><button type="button" class="lg-chip" data-min="45">45</button><button type="button" class="lg-chip" data-min="50">50</button><button type="button" class="lg-chip" data-min="60">60</button>
+    </div>
+    <div class="lg-field"><span class="lg-lbl" id="lgBlocksL">What you did</span>
+      <div class="lg-chips" role="group" aria-labelledby="lgBlocksL">
+        <button type="button" class="lg-chip" data-group="blocks" data-val="warm" aria-pressed="false">Warm up</button>
+        <button type="button" class="lg-chip" data-group="blocks" data-val="flash" aria-pressed="false">Flashcards</button>
+        <button type="button" class="lg-chip" data-group="blocks" data-val="sight" aria-pressed="false">Sight-reading</button>
+        <button type="button" class="lg-chip" data-group="blocks" data-val="pieces" aria-pressed="false">Pieces</button>
+        <button type="button" class="lg-chip" data-group="blocks" data-val="mock" aria-pressed="false">Mock audition</button>
+      </div>
+    </div>
+
+    <div class="lg-panel" id="lgP-flash" hidden>
+      <h3>Flashcards</h3>
+      <div class="lg-field"><span class="lg-lbl" id="lgStageL">Stage</span>
+        <div class="lg-chips" role="group" aria-labelledby="lgStageL">
+          <button type="button" class="lg-chip" data-group="stage" data-val="1" aria-pressed="false">1</button><button type="button" class="lg-chip" data-group="stage" data-val="2" aria-pressed="false">2</button><button type="button" class="lg-chip" data-group="stage" data-val="3" aria-pressed="false">3</button><button type="button" class="lg-chip" data-group="stage" data-val="4" aria-pressed="false">4</button><button type="button" class="lg-chip" data-group="stage" data-val="5" aria-pressed="false">5</button><button type="button" class="lg-chip" data-group="stage" data-val="6" aria-pressed="false">6</button>
+        </div></div>
+      <div class="lg-field"><span class="lg-lbl" id="lgClefL">Clef</span>
+        <div class="lg-chips" role="group" aria-labelledby="lgClefL">
+          <button type="button" class="lg-chip" data-group="clef" data-val="bass" aria-pressed="false">Bass</button><button type="button" class="lg-chip" data-group="clef" data-val="treble" aria-pressed="false">Treble</button><button type="button" class="lg-chip" data-group="clef" data-val="both" aria-pressed="false">Both</button>
+        </div></div>
+      <div class="lg-row">
+        <div class="lg-field"><label for="lgCorrect">Correct in 60s</label><input class="lg-in num" type="number" id="lgCorrect" min="0" max="200" inputmode="numeric"></div>
+        <div class="lg-field"><label for="lgErrors">Errors</label><input class="lg-in num" type="number" id="lgErrors" min="0" max="200" inputmode="numeric"></div>
+        <div class="lg-field"><label for="lgNtk">Note-to-key</label><input class="lg-in num" type="number" id="lgNtk" min="0" max="200" inputmode="numeric"></div>
+      </div>
+      <p class="lg-hint">Target: 40 correct with 0 errors. Note-to-key target: 30 in 60 seconds.</p>
+    </div>
+
+    <div class="lg-panel" id="lgP-sight" hidden>
+      <h3>Sight-reading</h3>
+      <div class="lg-field"><span class="lg-lbl" id="lgRungL">Rung</span>
+        <div class="lg-chips" role="group" aria-labelledby="lgRungL">
+          <button type="button" class="lg-chip" data-group="rung" data-val="1" aria-pressed="false">1</button><button type="button" class="lg-chip" data-group="rung" data-val="2" aria-pressed="false">2</button><button type="button" class="lg-chip" data-group="rung" data-val="3" aria-pressed="false">3</button><button type="button" class="lg-chip" data-group="rung" data-val="4" aria-pressed="false">4</button>
+        </div></div>
+      <div class="lg-row">
+        <div class="lg-field"><label for="lgKey">Key</label><input class="lg-in num" type="text" id="lgKey" list="lgKeys" autocomplete="off" maxlength="12"></div>
+        <div class="lg-field"><label for="lgTime">Time sig.</label><input class="lg-in num" type="text" id="lgTime" list="lgTimes" autocomplete="off" maxlength="8"></div>
+        <div class="lg-field"><label for="lgTempo">Tempo (bpm)</label><input class="lg-in num" type="number" id="lgTempo" min="20" max="240" inputmode="numeric"></div>
+      </div>
+      <datalist id="lgKeys"><option value="C"><option value="G"><option value="D"><option value="F"><option value="Bb"><option value="A"><option value="Eb"><option value="A minor"><option value="E minor"><option value="D minor"></datalist>
+      <datalist id="lgTimes"><option value="2/4"><option value="3/4"><option value="4/4"><option value="6/8"></datalist>
+      <div class="lg-field"><span class="lg-lbl" id="lgExL">Excerpts, one tap each</span>
+        <div class="lg-chips" role="group" aria-labelledby="lgExL">
+          <button type="button" class="lg-chip ok" data-res="clean">+ Clean</button><button type="button" class="lg-chip" data-res="stop">+ Stopped once</button><button type="button" class="lg-chip bad" data-res="brk">+ Broke down</button>
+        </div>
+        <div class="lg-pills" id="lgEx" aria-live="polite"></div>
+      </div>
+      <div class="lg-field"><span class="lg-lbl" id="lgRhyL">Rhythm, 1 to 5</span>
+        <div class="lg-chips" role="group" aria-labelledby="lgRhyL">
+          <button type="button" class="lg-chip" data-group="rhythm" data-val="1" aria-pressed="false">1</button><button type="button" class="lg-chip" data-group="rhythm" data-val="2" aria-pressed="false">2</button><button type="button" class="lg-chip" data-group="rhythm" data-val="3" aria-pressed="false">3</button><button type="button" class="lg-chip" data-group="rhythm" data-val="4" aria-pressed="false">4</button><button type="button" class="lg-chip" data-group="rhythm" data-val="5" aria-pressed="false">5</button>
+        </div></div>
+      <div class="lg-field"><span class="lg-lbl" id="lgPitL">Pitch, 1 to 5</span>
+        <div class="lg-chips" role="group" aria-labelledby="lgPitL">
+          <button type="button" class="lg-chip" data-group="pitch" data-val="1" aria-pressed="false">1</button><button type="button" class="lg-chip" data-group="pitch" data-val="2" aria-pressed="false">2</button><button type="button" class="lg-chip" data-group="pitch" data-val="3" aria-pressed="false">3</button><button type="button" class="lg-chip" data-group="pitch" data-val="4" aria-pressed="false">4</button><button type="button" class="lg-chip" data-group="pitch" data-val="5" aria-pressed="false">5</button>
+        </div></div>
+      <div class="lg-field"><span class="lg-lbl" id="lgHandL">Hand that struggled</span>
+        <div class="lg-chips" role="group" aria-labelledby="lgHandL">
+          <button type="button" class="lg-chip" data-group="hand" data-val="left" aria-pressed="false">Left</button><button type="button" class="lg-chip" data-group="hand" data-val="right" aria-pressed="false">Right</button><button type="button" class="lg-chip" data-group="hand" data-val="both" aria-pressed="false">Both</button><button type="button" class="lg-chip" data-group="hand" data-val="none" aria-pressed="false">Neither</button>
+        </div></div>
+      <div class="lg-field"><span class="lg-lbl" id="lgEyesL">Eyes stayed on the page</span>
+        <div class="lg-chips" role="group" aria-labelledby="lgEyesL">
+          <button type="button" class="lg-chip" data-group="eyes" data-val="yes" aria-pressed="false">Yes</button><button type="button" class="lg-chip" data-group="eyes" data-val="no" aria-pressed="false">No</button>
+        </div></div>
+    </div>
+
+    <div class="lg-panel" id="lgP-pieces" hidden>
+      <h3>Pieces</h3>
+      <div class="lg-field"><span class="lg-lbl" id="lgPieceL">Piece</span>
+        <div class="lg-chips" role="group" aria-labelledby="lgPieceL">
+          <button type="button" class="lg-chip" data-group="piece" data-val="p1" aria-pressed="false">Passacaglia</button><button type="button" class="lg-chip lg-p2name" data-group="piece" data-val="p2" aria-pressed="false">Gymnop&eacute;die No. 1</button>
+        </div></div>
+      <div class="lg-field"><span class="lg-lbl" id="lgActL">What you did</span>
+        <div class="lg-chips" role="group" aria-labelledby="lgActL">
+          <button type="button" class="lg-chip" data-group="act" data-val="map" aria-pressed="false">Mapping</button><button type="button" class="lg-chip" data-group="act" data-val="cold" aria-pressed="false">Cold-score run</button><button type="button" class="lg-chip" data-group="act" data-val="draw" aria-pressed="false">Random draw</button><button type="button" class="lg-chip" data-group="act" data-val="full" aria-pressed="false">Full run</button><button type="button" class="lg-chip" data-group="act" data-val="mock" aria-pressed="false">Mock audition</button>
+        </div></div>
+      <div class="lg-row">
+        <div class="lg-field"><label for="lgFrom">From m.</label><input class="lg-in num" type="number" id="lgFrom" min="1" inputmode="numeric"></div>
+        <div class="lg-field"><label for="lgTo">To m.</label><input class="lg-in num" type="number" id="lgTo" min="1" inputmode="numeric"></div>
+        <div class="lg-field"><label for="lgPct">Tempo %</label><input class="lg-in num" type="number" id="lgPct" min="1" max="150" inputmode="numeric"></div>
+      </div>
+      <div class="lg-field"><label for="lgFailed">Measures that failed</label><input class="lg-in" type="text" id="lgFailed" inputmode="text" autocomplete="off" placeholder="12, 40-42"></div>
+      <div class="lg-pend" id="lgPend" aria-live="polite"></div>
+      <div><button type="button" class="lg-ghost" id="lgAddPiece">Add another piece</button></div>
+    </div>
+
+    <div class="lg-panel" id="lgP-mock" hidden>
+      <h3>Mock audition</h3>
+      <div class="lg-row">
+        <div class="lg-field"><label for="lgMockNum">Number</label><input class="lg-in num" type="number" id="lgMockNum" min="1" max="20" inputmode="numeric"></div>
+        <div class="lg-field grow"><label for="lgMockRoom">Room</label><input class="lg-in" type="text" id="lgMockRoom" maxlength="80" autocomplete="off"></div>
+      </div>
+      <div class="lg-field"><label for="lgMockNotes">Notes</label><textarea class="lg-in" id="lgMockNotes" maxlength="1000"></textarea></div>
+    </div>
+
+    <div class="lg-field"><label for="lgNote">Note</label><input class="lg-in" type="text" id="lgNote" maxlength="300" autocomplete="off" placeholder="Optional"></div>
+    <p class="lg-err" id="lgErr" role="alert"></p>
+    <button type="submit" class="lg-save">Save session</button>
+  </form>
+
+  <div class="card" style="margin-top:16px">
+    <h3 style="margin-bottom:4px">Recent sessions</h3>
+    <ul class="lg-list" id="lgRecent"></ul>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h3 style="margin-bottom:8px">Back up your log</h3>
+    <p>Browser storage can be cleared. Export a copy now and then. Last exported: <strong id="lgLastExp">never</strong>.</p>
+    <div class="lg-btns">
+      <button type="button" id="lgExport">Export</button>
+      <button type="button" class="lg-ghost" id="lgCopy" hidden>Copy</button>
+      <button type="button" class="lg-ghost" id="lgImportShow" aria-expanded="false" aria-controls="lgImportBox">Import</button>
+    </div>
+    <textarea class="lg-in lg-json" id="lgJson" rows="6" readonly hidden aria-label="Exported data"></textarea>
+    <div class="lg-import" id="lgImportBox" hidden>
+      <div class="lg-field"><label for="lgFile">Choose a file</label><input type="file" id="lgFile" accept="application/json,.json"></div>
+      <div class="lg-field"><label for="lgPaste">Or paste the exported text</label><textarea class="lg-in lg-json" id="lgPaste" rows="5"></textarea></div>
+      <p class="lg-hint">Import replaces your checklist, Piece II and log with what is in the file.</p>
+      <div><button type="button" class="lg-ghost" id="lgImport">Import now</button></div>
+    </div>
+    <div class="lg-danger">
+      <button type="button" class="lg-ghost" id="lgClear">Clear log</button>
+      <span>Clears sessions and draws only. Your checklist stays.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INSIGHTS ============ -->
+<section id="insights">
+  <div class="sec-head">
+    <h2>Insights</h2>
+    <p class="sec-note">Built from your log with simple rules. Updates as soon as you save.</p>
+  </div>
+  <p class="note" id="inEmpty">Log your first session and your insights show up here.</p>
+  <div id="inBody" hidden>
+    <div class="lg-tiles">
+      <div class="lg-tile" id="inPaceTile"><span class="k">Dec 7 pace</span><span class="v" id="inPace">-</span><span class="s" id="inPaceS"></span></div>
+      <div class="lg-tile"><span class="k">Streak</span><span class="v" id="inStreak">0</span><span class="s" id="inStreakS">days in a row</span></div>
+      <div class="lg-tile"><span class="k">This week</span><span class="v" id="inWeek">0</span><span class="s" id="inWeekS">of 300 min</span></div>
+      <div class="lg-tile"><span class="k">Random draws</span><span class="v" id="inDraws">-</span><span class="s" id="inDrawsS">clean, last 10</span></div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <h3>Work on next</h3>
+      <ol class="in-next" id="inNext"></ol>
+    </div>
+    <div class="grid g2" style="margin-top:16px">
+      <div class="card">
+        <div class="in-h"><h3>Minutes per week</h3><span class="lg-hint">Dashed line: plan, 300</span></div>
+        <div id="inMinChart"></div>
+      </div>
+      <div class="card">
+        <div class="in-h"><h3>Flashcard speed</h3></div>
+        <div class="lg-chips" id="inStageChips" role="group" aria-label="Flashcard stage"></div>
+        <div id="inFlashChart" style="margin-top:10px"></div>
+      </div>
+      <div class="card">
+        <div class="in-h"><h3>Sight-reading clean rate</h3></div>
+        <div id="inSight"></div>
+      </div>
+      <div class="card">
+        <div class="in-h"><h3>Most-failed measures</h3><span class="lg-hint">All time</span></div>
+        <div id="inFailed"></div>
+      </div>
+      <div class="card">
+        <div class="in-h"><h3>Random draws vs checkpoints</h3></div>
+        <div id="inDrawBox"></div>
+      </div>
+      <div class="card">
+        <div class="in-h"><h3>On pace for Dec 7?</h3></div>
+        <ul class="in-pace" id="inPaceList"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="lg-toast" id="lgToast" role="status" aria-live="polite"><span id="lgToastMsg"></span><button type="button" id="lgToastAct" hidden>Undo</button></div>
 
 <!-- ============ THE DEADLINE ============ -->
 <section id="how">
@@ -643,6 +946,12 @@ footer p{font-size:.83rem;color:var(--muted);max-width:58ch}
       <button type="button" id="drawBtn">Draw a start point</button>
       <div class="draw-out" id="drawOut"><small>Start here</small>&mdash;</div>
     </div>
+    <div class="lg-drawlog" id="lgDrawLog">
+      <span class="lg-lbl">Log this draw</span>
+      <button type="button" class="lg-chip ok" id="lgDrawOk" disabled>Clean</button>
+      <button type="button" class="lg-chip bad" id="lgDrawBad" disabled>Failed</button>
+      <span class="lg-drawmsg" id="lgDrawMsg" aria-live="polite">Draw a start point first.</span>
+    </div>
   </div>
 
   <div class="grid g2" style="margin-top:16px">
@@ -882,6 +1191,795 @@ footer p{font-size:.83rem;color:var(--muted);max-width:58ch}
   });
 
   refresh();
+})();
+</script>
+<script>
+/* ---------- Practice log + insights. Separate from the checklist above. ---------- */
+(function(){
+  "use strict";
+
+  var LOG_KEY = "ear-to-page-log";
+  var LOG_VERSION = 1;
+  var CHECK_KEY = "ear-to-page-v2";
+  var P2_KEY = "ear-to-page-piece2";
+  var START = new Date(2026, 9, 5);
+  var AUDITION = new Date(2026, 11, 7);
+  var DAY = 864e5;
+  var PLAN_DAY_MIN = 50, PLAN_DAYS = 6, PLAN_WEEK_MIN = PLAN_DAY_MIN * PLAN_DAYS;
+  var FLASH_TARGET = 40, NTK_TARGET = 30;
+  var CHECKPOINTS = [
+    { date: "2026-11-15", need: 8, label: "Checkpoint 2" },
+    { date: "2026-11-29", need: 10, label: "Checkpoint 3" }
+  ];
+  var BLOCK_NAMES = { warm: "Warm up", flash: "Flashcards", sight: "Sight-reading", pieces: "Pieces", mock: "Mock audition" };
+  var ACT_NAMES = { map: "Mapping", cold: "Cold-score run", draw: "Random draw", full: "Full run", mock: "Mock audition" };
+  var RES_NAMES = { clean: "Clean", stop: "Stopped once", brk: "Broke down" };
+  var RUNG_FLOOR = [1, 1, 1, 2, 2, 3, 3, 3, 3];   /* lowest rung expected at the start of each week */
+  var STAGE_FLOOR = [1, 2, 3, 4, 5, 6, 6, 6, 6]; /* lowest flashcard stage expected at the start of each week */
+  var MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+  function $(id){ return document.getElementById(id); }
+  function all(sel, root){ return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
+  function esc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){ return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  function pad(n){ return (n < 10 ? "0" : "") + n; }
+  function iso(d){ return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); }
+  function parseISO(s){ var p = String(s).split("-"); return new Date(+p[0], +p[1] - 1, +p[2]); }
+  function shortDate(s){ var d = parseISO(s); return MONTHS[d.getMonth()] + " " + d.getDate(); }
+  function dayName(s){ return parseISO(s).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" }); }
+  function planWeek(s){ return Math.floor((parseISO(s) - START) / DAY / 7) + 1; }
+  function num(v){ if(v === "" || v == null){ return null; } var n = Number(v); return isFinite(n) ? n : null; }
+  function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+  function pct(a, b){ return b ? Math.round((a / b) * 100) : 0; }
+
+  var now = new Date();
+  var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  var todayISO = iso(today);
+  var curWeek = Math.min(9, Math.max(1, Math.floor((today - START) / DAY / 7) + 1));
+
+  /* ---------- storage (every access wrapped, page still works without it) ---------- */
+  var storageOK = true;
+  function rawGet(k){ try{ return window.localStorage.getItem(k); }catch(e){ storageOK = false; return null; } }
+  function rawSet(k, v){ try{ window.localStorage.setItem(k, v); return true; }catch(e){ storageOK = false; return false; } }
+  function parseJSON(s){ try{ return s ? JSON.parse(s) : null; }catch(e){ return null; } }
+
+  function emptyLog(){ return { v: LOG_VERSION, entries: [], draws: [], meta: { lastExport: null } }; }
+  /* Add a function here for each future version: MIGRATIONS[n] turns a version n log into version n + 1. */
+  var MIGRATIONS = {};
+  function migrate(d){
+    if(!d || typeof d !== "object"){ return emptyLog(); }
+    var v = typeof d.v === "number" ? d.v : 0;
+    if(v === 0){ d = { v: 1, entries: d.entries, draws: d.draws, meta: d.meta }; v = 1; }
+    while(v < LOG_VERSION && MIGRATIONS[v]){ d = MIGRATIONS[v](d); v = d.v; }
+    if(!Array.isArray(d.entries)){ d.entries = []; }
+    if(!Array.isArray(d.draws)){ d.draws = []; }
+    if(!d.meta || typeof d.meta !== "object"){ d.meta = { lastExport: null }; }
+    d.entries = d.entries.filter(function(e){ return e && typeof e.date === "string"; });
+    d.draws = d.draws.filter(function(x){ return x && typeof x.date === "string"; });
+    return d;
+  }
+  function loadLog(){
+    var raw = rawGet(LOG_KEY);
+    if(!raw){ return emptyLog(); }
+    var parsed = parseJSON(raw);
+    if(!parsed){ rawSet(LOG_KEY + "-unreadable", raw); return emptyLog(); }
+    return migrate(parsed);
+  }
+  var log = loadLog();
+  function saveLog(){ if(!rawSet(LOG_KEY, JSON.stringify(log))){ $("lgStoreWarn").hidden = false; } }
+  rawGet(CHECK_KEY);
+  if(!storageOK){ $("lgStoreWarn").hidden = false; }
+
+  /* ---------- toast with optional undo ---------- */
+  var toastTimer = null;
+  function toast(msg, undoFn){
+    var t = $("lgToast"), b = $("lgToastAct");
+    $("lgToastMsg").textContent = msg;
+    b.hidden = !undoFn;
+    b.onclick = undoFn ? function(){ t.classList.remove("show"); undoFn(); } : null;
+    t.classList.add("show");
+    window.clearTimeout(toastTimer);
+    toastTimer = window.setTimeout(function(){ t.classList.remove("show"); }, undoFn ? 5000 : 2600);
+  }
+
+  function p2Name(){ var el = document.querySelector(".p2"); return el ? el.textContent : "Piece II"; }
+  function pieceName(id){ return id === "p1" ? "Passacaglia" : p2Name(); }
+
+  /* ---------- form: chips ---------- */
+  var MULTI = { blocks: true };
+  var form = $("lgForm");
+  function chips(group){ return all('.lg-chip[data-group="' + group + '"]', form); }
+  function pressed(group){ return chips(group).filter(function(c){ return c.getAttribute("aria-pressed") === "true"; }).map(function(c){ return c.dataset.val; }); }
+  function one(group){ var p = pressed(group); return p.length ? p[0] : null; }
+  function setPressed(group, vals){
+    vals = [].concat(vals == null ? [] : vals).map(String);
+    chips(group).forEach(function(c){ c.setAttribute("aria-pressed", vals.indexOf(c.dataset.val) >= 0 ? "true" : "false"); });
+    if(group === "blocks"){ syncPanels(); }
+  }
+  function syncPanels(){
+    var b = pressed("blocks");
+    ["flash", "sight", "pieces", "mock"].forEach(function(k){ $("lgP-" + k).hidden = b.indexOf(k) < 0; });
+  }
+  form.addEventListener("click", function(e){
+    var c = e.target.closest("button");
+    if(!c || !form.contains(c)){ return; }
+    if(c.dataset.min){ $("lgMin").value = c.dataset.min; return; }
+    if(c.dataset.res){ excerpts.push(c.dataset.res); renderExcerpts(); return; }
+    if(c.dataset.exi){ excerpts.splice(+c.dataset.exi, 1); renderExcerpts(); return; }
+    var g = c.dataset.group;
+    if(!g){ return; }
+    var on = c.getAttribute("aria-pressed") === "true";
+    if(!MULTI[g]){ chips(g).forEach(function(o){ o.setAttribute("aria-pressed", "false"); }); }
+    c.setAttribute("aria-pressed", on ? "false" : "true");
+    if(g === "blocks"){ syncPanels(); }
+  });
+
+  var excerpts = [];
+  function renderExcerpts(){
+    var box = $("lgEx");
+    if(!excerpts.length){ box.innerHTML = '<span class="lg-hint">No excerpts yet.</span>'; return; }
+    box.innerHTML = excerpts.map(function(r, i){
+      return '<button type="button" class="lg-pill ' + r + '" data-exi="' + i + '" aria-label="Remove excerpt ' + (i + 1) + ', ' + RES_NAMES[r] + '">' + (i + 1) + ". " + RES_NAMES[r] + "</button>";
+    }).join("");
+  }
+
+  function parseMeasures(s){
+    var out = [];
+    String(s || "").split(/[,\s]+/).forEach(function(tok){
+      var m = tok.match(/^(\d+)(?:-(\d+))?$/);
+      if(!m){ return; }
+      var a = +m[1], b = m[2] ? +m[2] : a;
+      if(b < a || b - a > 32){ b = a; }
+      for(var i = a; i <= b; i++){ if(out.indexOf(i) < 0){ out.push(i); } }
+    });
+    return out;
+  }
+
+  var pending = [];
+  function readPiece(){
+    var piece = one("piece");
+    if(!piece){ return null; }
+    return {
+      piece: piece, act: one("act"),
+      from: num($("lgFrom").value), to: num($("lgTo").value),
+      tempo: num($("lgPct").value), failed: parseMeasures($("lgFailed").value)
+    };
+  }
+  function pieceSummary(p){
+    var bits = [pieceName(p.piece)];
+    if(p.act){ bits.push(ACT_NAMES[p.act]); }
+    if(p.from || p.to){ bits.push("m. " + (p.from || "?") + "-" + (p.to || "?")); }
+    if(p.tempo){ bits.push(p.tempo + "%"); }
+    if(p.failed && p.failed.length){ bits.push("failed " + p.failed.join(", ")); }
+    return bits.join(", ");
+  }
+  function renderPending(){
+    $("lgPend").innerHTML = pending.map(function(p){ return "<div>" + esc(pieceSummary(p)) + "</div>"; }).join("");
+  }
+  function clearPieceResults(){ ["lgFrom", "lgTo", "lgFailed"].forEach(function(id){ $(id).value = ""; }); }
+  $("lgAddPiece").addEventListener("click", function(){
+    var p = readPiece();
+    if(!p){ $("lgErr").textContent = "Pick a piece first."; return; }
+    $("lgErr").textContent = "";
+    pending.push(p); renderPending(); clearPieceResults();
+    setPressed("piece", p.piece === "p1" ? "p2" : "p1");
+  });
+
+  /* Fill the form with your last settings so a typical session is a few taps. */
+  function lastWith(fn){ var s = sorted(); for(var i = s.length - 1; i >= 0; i--){ if(fn(s[i])){ return s[i]; } } return null; }
+  function sorted(){ return log.entries.slice().sort(function(a, b){ return a.date === b.date ? (a.ts || 0) - (b.ts || 0) : (a.date < b.date ? -1 : 1); }); }
+  function prefill(){
+    $("lgDate").value = todayISO;
+    var last = lastWith(function(){ return true; });
+    setPressed("blocks", last ? last.blocks : []);
+    var f = lastWith(function(e){ return e.flash; });
+    setPressed("stage", f ? f.flash.stage : null);
+    setPressed("clef", f ? f.flash.clef : "bass");
+    var s = lastWith(function(e){ return e.sight; });
+    setPressed("rung", s ? s.sight.rung : null);
+    $("lgKey").value = s && s.sight.key ? s.sight.key : "";
+    $("lgTime").value = s && s.sight.time ? s.sight.time : "";
+    $("lgTempo").value = s && s.sight.tempo ? s.sight.tempo : "";
+    var p = lastWith(function(e){ return e.pieces && e.pieces.length; });
+    var lp = p ? p.pieces[p.pieces.length - 1] : null;
+    setPressed("piece", lp ? lp.piece : null);
+    setPressed("act", lp ? lp.act : null);
+    $("lgPct").value = lp && lp.tempo ? lp.tempo : "";
+    var m = lastWith(function(e){ return e.mock; });
+    $("lgMockNum").value = m && m.mock.num ? m.mock.num + 1 : 1;
+    ["rhythm", "pitch", "hand", "eyes"].forEach(function(g){ setPressed(g, null); });
+    ["lgMin", "lgCorrect", "lgErrors", "lgNtk", "lgNote", "lgMockRoom", "lgMockNotes"].forEach(function(id){ $(id).value = ""; });
+    clearPieceResults();
+    excerpts = []; renderExcerpts();
+    pending = []; renderPending();
+    $("lgErr").textContent = "";
+  }
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var minutes = num($("lgMin").value);
+    if(!(minutes > 0)){ $("lgErr").textContent = "Enter the minutes you practiced."; $("lgMin").focus(); return; }
+    var date = $("lgDate").value || todayISO;
+    var blocks = pressed("blocks");
+    var entry = { id: uid(), ts: Date.now(), date: date, minutes: minutes, blocks: blocks, note: $("lgNote").value.trim() };
+    if(blocks.indexOf("flash") >= 0){
+      entry.flash = { stage: num(one("stage")), clef: one("clef"), correct: num($("lgCorrect").value), errors: num($("lgErrors").value), ntk: num($("lgNtk").value) };
+    }
+    if(blocks.indexOf("sight") >= 0){
+      entry.sight = { rung: num(one("rung")), key: $("lgKey").value.trim(), time: $("lgTime").value.trim(), tempo: num($("lgTempo").value),
+        ex: excerpts.slice(), rhythm: num(one("rhythm")), pitch: num(one("pitch")), hand: one("hand"), eyes: one("eyes") };
+    }
+    var list = pending.slice();
+    if(blocks.indexOf("pieces") >= 0){ var cp = readPiece(); if(cp){ list.push(cp); } }
+    if(list.length){ entry.pieces = list; }
+    if(blocks.indexOf("mock") >= 0){
+      entry.mock = { num: num($("lgMockNum").value), room: $("lgMockRoom").value.trim(), notes: $("lgMockNotes").value.trim() };
+    }
+    log.entries.push(entry);
+    saveLog();
+    prefill();
+    renderAll();
+    toast("Session saved. Insights updated.", function(){ removeEntry(entry.id); });
+  });
+
+  function removeEntry(id){
+    log.entries = log.entries.filter(function(e){ return e.id !== id; });
+    saveLog(); prefill(); renderAll();
+  }
+
+  /* ---------- recent sessions ---------- */
+  function summary(e){
+    var bits = ["<b>" + esc(dayName(e.date)) + ", " + e.minutes + " min</b>"];
+    var b = (e.blocks || []).map(function(k){ return BLOCK_NAMES[k] || k; });
+    if(b.length){ bits.push(esc(b.join(", "))); }
+    if(e.flash && e.flash.correct != null){ bits.push("Stage " + (e.flash.stage || "?") + ": " + e.flash.correct + " correct, " + (e.flash.errors || 0) + " errors"); }
+    if(e.sight && e.sight.ex && e.sight.ex.length){
+      var c = e.sight.ex.filter(function(r){ return r === "clean"; }).length;
+      bits.push("Rung " + (e.sight.rung || "?") + ": " + c + " of " + e.sight.ex.length + " clean");
+    }
+    (e.pieces || []).forEach(function(p){ bits.push(esc(pieceSummary(p))); });
+    if(e.mock){ bits.push("Mock audition #" + (e.mock.num || "?") + (e.mock.room ? " in " + esc(e.mock.room) : "")); }
+    if(e.note){ bits.push("&ldquo;" + esc(e.note) + "&rdquo;"); }
+    return bits.join(" &middot; ");
+  }
+  function renderRecent(){
+    var ul = $("lgRecent");
+    var list = sorted().reverse().slice(0, 6);
+    if(!list.length){ ul.innerHTML = '<li><span class="lg-sum">No sessions yet. Your first one shows up here.</span></li>'; return; }
+    ul.innerHTML = list.map(function(e){
+      return '<li><span class="lg-sum">' + summary(e) + '</span><button type="button" class="lg-ghost" data-del="' + esc(e.id) + '" aria-label="Delete session from ' + esc(dayName(e.date)) + '">Delete</button></li>';
+    }).join("");
+  }
+  $("lgRecent").addEventListener("click", function(e){
+    var b = e.target.closest("[data-del]");
+    if(!b){ return; }
+    var id = b.dataset.del;
+    var gone = log.entries.filter(function(x){ return x.id === id; })[0];
+    if(!gone){ return; }
+    removeEntry(id);
+    toast("Session deleted.", function(){ log.entries.push(gone); saveLog(); renderAll(); });
+  });
+
+  /* ---------- random-measure tool: one-tap clean / failed ---------- */
+  var lastDraw = null;
+  var drawOk = $("lgDrawOk"), drawBad = $("lgDrawBad"), drawMsg = $("lgDrawMsg");
+  function setDrawButtons(on){ drawOk.disabled = !on; drawBad.disabled = !on; }
+  $("drawBtn").addEventListener("click", function(){
+    /* runs after the tool's own handler, then reads what it showed */
+    var out = $("drawOut");
+    var small = out.querySelector("small");
+    var m = (out.textContent || "").match(/m\.\s*(\d+)\s*$/);
+    if(!small || !m){ lastDraw = null; setDrawButtons(false); drawMsg.textContent = "Enter a measure count first."; return; }
+    var name = small.textContent;
+    lastDraw = { piece: name === "Passacaglia" ? "p1" : "p2", name: name, m: +m[1] };
+    setDrawButtons(true);
+    drawMsg.textContent = "How did " + name + ", m. " + lastDraw.m + " go?";
+  });
+  function logDraw(ok){
+    if(!lastDraw){ return; }
+    var d = { id: uid(), ts: Date.now(), date: todayISO, piece: lastDraw.piece, name: lastDraw.name, m: lastDraw.m, ok: ok };
+    log.draws.push(d);
+    saveLog();
+    setDrawButtons(false);
+    drawMsg.textContent = "Logged m. " + d.m + " as " + (ok ? "clean" : "failed") + ". Draw again.";
+    lastDraw = null;
+    renderAll();
+    toast("Draw logged: m. " + d.m + (ok ? " clean" : " failed") + ".", function(){
+      log.draws = log.draws.filter(function(x){ return x.id !== d.id; }); saveLog(); renderAll();
+      drawMsg.textContent = "Draw removed.";
+    });
+  }
+  drawOk.addEventListener("click", function(){ logDraw(true); });
+  drawBad.addEventListener("click", function(){ logDraw(false); });
+
+  /* ================= INSIGHTS ================= */
+  function dayMap(){
+    var map = {};
+    log.entries.forEach(function(e){
+      var d = map[e.date] || (map[e.date] = { min: 0, flash: false, ex: 0 });
+      d.min += e.minutes || 0;
+      if(e.flash || (e.blocks || []).indexOf("flash") >= 0){ d.flash = true; }
+      if(e.sight && e.sight.ex){ d.ex += e.sight.ex.length; }
+    });
+    return map;
+  }
+  /* A day counts if you did 10+ minutes, or the short day: flashcards plus 2 excerpts. */
+  function counts(d){ return !!d && (d.min >= 10 || (d.flash && d.ex >= 2)); }
+
+  /* Practice days in a row, ending today (or yesterday if today is not logged yet).
+     One rest day per plan week does not break it, since the plan is 6 days a week. */
+  function streak(map){
+    var d = new Date(today), n = 0, rest = {};
+    if(!counts(map[iso(d)])){ d = new Date(d.getTime() - DAY); }
+    for(var g = 0; g < 400; g++){
+      var k = iso(d);
+      if(counts(map[k])){ n++; }
+      else {
+        var wk = planWeek(k);
+        if(rest[wk]){ break; }
+        rest[wk] = true;
+      }
+      d = new Date(d.getTime() - DAY);
+    }
+    return n;
+  }
+
+  function weekMinutes(){
+    var w = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+    log.entries.forEach(function(e){ var k = planWeek(e.date); if(k >= 1 && k <= 9){ w[k - 1] += e.minutes || 0; } });
+    return w;
+  }
+
+  function flashSessions(){ return sorted().filter(function(e){ return e.flash && e.flash.stage; }); }
+  function atTarget(f){ return f.correct != null && f.correct >= FLASH_TARGET && (f.errors || 0) === 0; }
+
+  /* One record per day of sight-reading: the rung you ended on and how the excerpts went. */
+  function srDays(){
+    var days = {}, order = [];
+    sorted().forEach(function(e){
+      if(!e.sight || !e.sight.rung){ return; }
+      var d = days[e.date];
+      if(!d){ d = days[e.date] = { date: e.date, rung: e.sight.rung, ex: [] }; order.push(d); }
+      d.rung = e.sight.rung;
+      d.ex = d.ex.concat((e.sight.ex || []).map(function(r){ return { r: r, rung: e.sight.rung }; }));
+    });
+    order.forEach(function(d){
+      var mine = d.ex.filter(function(x){ return x.rung === d.rung; });
+      d.clean = mine.length > 0 && mine.every(function(x){ return x.r === "clean"; });
+      d.broke = mine.some(function(x){ return x.r === "brk"; });
+    });
+    return order;
+  }
+
+  function failCounts(piece, sinceISO){
+    var c = {};
+    log.entries.forEach(function(e){
+      if(sinceISO && e.date < sinceISO){ return; }
+      (e.pieces || []).forEach(function(p){ if(p.piece === piece){ (p.failed || []).forEach(function(m){ c[m] = (c[m] || 0) + 1; }); } });
+    });
+    log.draws.forEach(function(d){ if(d.piece === piece && !d.ok && (!sinceISO || d.date >= sinceISO)){ c[d.m] = (c[d.m] || 0) + 1; } });
+    return Object.keys(c).map(function(m){ return { m: +m, n: c[m] }; }).sort(function(a, b){ return b.n - a.n || a.m - b.m; });
+  }
+
+  function lastTen(piece){
+    var ds = log.draws.filter(function(d){ return d.piece === piece; }).sort(function(a, b){ return (a.ts || 0) - (b.ts || 0); }).slice(-10);
+    return { n: ds.length, clean: ds.filter(function(d){ return d.ok; }).length };
+  }
+  function nextCheckpoint(){ for(var i = 0; i < CHECKPOINTS.length; i++){ if(CHECKPOINTS[i].date >= todayISO){ return CHECKPOINTS[i]; } } return null; }
+
+  function checklistEarlier(){
+    var total = 0, done = 0;
+    for(var w = 1; w < curWeek; w++){
+      var sec = $("w" + w);
+      if(!sec){ continue; }
+      all('input[type="checkbox"]', sec).forEach(function(b){ total++; if(b.checked){ done++; } });
+    }
+    return { total: total, done: done };
+  }
+
+  function minutesPace(map){
+    var first = sorted()[0];
+    if(!first){ return null; }
+    var from = parseISO(first.date) < START ? START : parseISO(first.date);
+    var days = Math.round((today - from) / DAY); /* full days before today */
+    if(days < 1){ return null; }
+    var logged = 0;
+    Object.keys(map).forEach(function(k){ var d = parseISO(k); if(d >= from && d < today){ logged += map[k].min; } });
+    var plan = Math.round(days * PLAN_DAY_MIN * PLAN_DAYS / 7);
+    return { logged: logged, plan: plan, days: days };
+  }
+
+  function paceChecks(map){
+    var out = [];
+    var mp = minutesPace(map);
+    if(mp){ out.push({ ok: mp.logged >= mp.plan * 0.75, text: "Minutes since you started logging: " + mp.logged + " of about " + mp.plan + " planned." }); }
+    else { out.push({ ok: null, text: "Minutes: log a few days to compare with the plan." }); }
+    var fs = flashSessions();
+    if(fs.length){
+      var st = fs[fs.length - 1].flash.stage, need = STAGE_FLOOR[curWeek - 1];
+      out.push({ ok: st >= need, text: "Flashcards at stage " + st + ". Week " + curWeek + " expects stage " + need + " or higher." });
+    } else { out.push({ ok: curWeek > 1 ? false : null, text: "Flashcards: nothing logged yet." }); }
+    var sd = srDays();
+    if(sd.length){
+      var r = sd[sd.length - 1].rung, needR = RUNG_FLOOR[curWeek - 1];
+      out.push({ ok: r >= needR, text: "Sight-reading at rung " + r + ". Week " + curWeek + " expects rung " + needR + " or higher." });
+    } else { out.push({ ok: curWeek > 1 ? false : null, text: "Sight-reading: nothing logged yet." }); }
+    var cl = checklistEarlier();
+    if(cl.total){ out.push({ ok: cl.done >= cl.total * 0.7, text: "Checklist for weeks before this one: " + cl.done + " of " + cl.total + " ticked." }); }
+    if(curWeek >= 6){
+      var cp = nextCheckpoint();
+      if(cp){
+        ["p1", "p2"].forEach(function(p){
+          var lt = lastTen(p);
+          out.push({ ok: lt.n >= 10 && lt.clean >= cp.need, text: pieceName(p) + " draws: " + lt.clean + " of last " + lt.n + " clean. " + cp.label + " needs " + cp.need + " of 10." });
+        });
+      }
+    }
+    return out;
+  }
+
+  function workNext(map){
+    var items = [];
+    function add(prio, title, why){ items.push({ prio: prio, title: title, why: why }); }
+
+    /* Sight-reading rung: up after 3 clean days, down after 2 days with breakdowns (from the Toolkit rules). */
+    var sd = srDays();
+    if(sd.length){
+      var r = sd[sd.length - 1].rung;
+      var atR = sd.filter(function(d){ return d.rung === r; });
+      var l3 = atR.slice(-3), l2 = atR.slice(-2);
+      if(l2.length === 2 && l2.every(function(d){ return d.broke; }) && r > 1){
+        add(1, "Drop to rung " + (r - 1) + " for a week", "Your last 2 sight-reading days at rung " + r + " had breakdowns. Time above your level does not help.");
+      } else if(l3.length === 3 && l3.every(function(d){ return d.clean; })){
+        if(r < 4){ add(2, "Move up to rung " + (r + 1), "3 clean days in a row at rung " + r + "."); }
+        else { add(6, "Rung 4 is solid", "3 clean days in a row at rung 4. Keep it there."); }
+      }
+    }
+
+    /* Flashcards: next stage after 3 sessions at target. */
+    var fs = flashSessions();
+    if(fs.length){
+      var st = fs[fs.length - 1].flash.stage;
+      var atS = fs.filter(function(e){ return e.flash.stage === st; }).slice(-3);
+      if(atS.length === 3 && atS.every(function(e){ return atTarget(e.flash); })){
+        if(st < 6){ add(2, "Move to flashcard stage " + (st + 1), "3 sessions in a row at stage " + st + " with 40+ correct and 0 errors."); }
+        else { add(6, "Cut flashcards to 5 minutes a day", "Stage 6 is at target 3 times in a row."); }
+      }
+      var lastF = fs[fs.length - 1].flash;
+      if(lastF.ntk != null && lastF.ntk < NTK_TARGET && st >= 3){
+        add(4, "Note-to-key is at " + lastF.ntk, "The target is " + NTK_TARGET + " in 60 seconds. Play the note without saying its name.");
+      }
+    }
+
+    /* Measures that keep failing (last 3 weeks). */
+    var since = iso(new Date(today.getTime() - 21 * DAY));
+    ["p1", "p2"].forEach(function(p){
+      failCounts(p, since).filter(function(x){ return x.n >= 3; }).slice(0, 2).forEach(function(x){
+        add(1, "Repair " + pieceName(p) + ", m. " + x.m, "It failed " + x.n + " times in the last 3 weeks. Read it slowly from the score, name the notes, then play 8 measures from it.");
+      });
+    });
+
+    /* Minutes against the plan. */
+    var wm = weekMinutes();
+    if(curWeek > 1 && log.entries.length){
+      var firstWeek = planWeek(sorted()[0].date);
+      var lw = wm[curWeek - 2];
+      if(curWeek - 1 >= firstWeek && lw < PLAN_WEEK_MIN * 0.8){
+        add(3, "Last week was " + lw + " of " + PLAN_WEEK_MIN + " minutes", "On busy days do the short day: 10 minutes of flashcards and 2 excerpts.");
+      }
+    }
+    var dow = Math.round((today - START) / DAY) - (curWeek - 1) * 7; /* 0 = Monday */
+    var expectSoFar = Math.min(dow, PLAN_DAYS) * PLAN_DAY_MIN;
+    if(dow >= 3 && wm[curWeek - 1] < expectSoFar * 0.6){
+      add(3, "This week is behind: " + wm[curWeek - 1] + " of about " + expectSoFar + " minutes so far", "Protect the first two blocks: flashcards and sight-reading.");
+    }
+
+    /* Gap in practice. */
+    var keys = Object.keys(map).filter(function(k){ return counts(map[k]); }).sort();
+    if(keys.length){
+      var gap = Math.round((today - parseISO(keys[keys.length - 1])) / DAY);
+      if(gap >= 2 && today < AUDITION){ add(2, "No practice logged since " + shortDate(keys[keys.length - 1]), "A short day still counts: 10 minutes of flashcards and 2 excerpts."); }
+    }
+
+    /* Random draws against the next checkpoint (from week 5, or once you have draws). */
+    var cp = nextCheckpoint();
+    if(cp && (curWeek >= 5 || log.draws.length)){
+      ["p1", "p2"].forEach(function(p){
+        var lt = lastTen(p);
+        if(lt.n && (lt.n < 10 || lt.clean < cp.need)){
+          add(curWeek >= 5 ? 2 : 5, "More random draws on " + pieceName(p), lt.clean + " of the last " + lt.n + " were clean. " + cp.label + " needs " + cp.need + " of 10 by " + shortDate(cp.date) + ".");
+        }
+      });
+    }
+
+    /* Patterns from your sight-reading self-ratings (from "When you stall"). */
+    var srs = sorted().filter(function(e){ return e.sight; });
+    var eyes = srs.filter(function(e){ return e.sight.eyes; }).slice(-3);
+    if(eyes.length >= 2 && eyes.filter(function(e){ return e.sight.eyes === "no"; }).length >= 2){
+      add(3, "Cover the keys while you read", "Your eyes left the page in " + eyes.filter(function(e){ return e.sight.eyes === "no"; }).length + " of your last " + eyes.length + " sight-reading sessions.");
+    }
+    var rated = srs.filter(function(e){ return e.sight.rhythm && e.sight.pitch; }).slice(-3);
+    if(rated.length >= 2){
+      var rAvg = rated.reduce(function(s, e){ return s + e.sight.rhythm; }, 0) / rated.length;
+      var pAvg = rated.reduce(function(s, e){ return s + e.sight.pitch; }, 0) / rated.length;
+      if(pAvg - rAvg >= 1){ add(4, "Rhythm is your weaker side", "Rhythm averages " + rAvg.toFixed(1) + " and pitch " + pAvg.toFixed(1) + ". Clap and count each excerpt before you play it."); }
+      else if(rAvg - pAvg >= 1){ add(4, "Pitch is your weaker side", "Pitch averages " + pAvg.toFixed(1) + " and rhythm " + rAvg.toFixed(1) + ". Read by interval from a landmark note."); }
+    }
+    var hands = srs.filter(function(e){ return e.sight.hand === "left" || e.sight.hand === "right"; }).slice(-5);
+    ["left", "right"].forEach(function(h){
+      var n = hands.filter(function(e){ return e.sight.hand === h; }).length;
+      if(n >= 3){ add(4, "Extra " + h + "-hand reading", "The " + h + " hand struggled in " + n + " of your last " + hands.length + " sessions. Read it alone from the page."); }
+    });
+
+    items.sort(function(a, b){ return a.prio - b.prio; });
+    return items.slice(0, 6);
+  }
+
+  /* ---------- charts (inline SVG) ---------- */
+  function minutesChart(wm){
+    var W = 320, H = 170, L = 34, R = 8, T = 14, B = 26;
+    var max = Math.max(PLAN_WEEK_MIN * 1.2, Math.max.apply(null, wm));
+    max = Math.ceil(max / 100) * 100;
+    var bw = (W - L - R) / 9;
+    function y(v){ return T + (H - T - B) * (1 - v / max); }
+    var s = '<svg class="lg-chart" viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="Minutes per plan week compared with the 300 minute plan">';
+    for(var g = 0; g <= max; g += 100){ s += '<line class="grid" x1="' + L + '" x2="' + (W - R) + '" y1="' + y(g) + '" y2="' + y(g) + '"/><text x="' + (L - 6) + '" y="' + (y(g) + 4) + '" text-anchor="end">' + g + "</text>"; }
+    wm.forEach(function(v, i){
+      var x = L + i * bw + 4, w = bw - 8, h = Math.max(0, (H - T - B) * v / max);
+      var cls = (i + 1) === curWeek ? "bar" : ((i + 1) < curWeek ? "bar" : "bar dim");
+      if(v > 0){ s += '<path class="' + cls + '" d="M' + x + "," + (H - B) + " v" + (-Math.max(h - 3, 0)) + " q0,-3 3,-3 h" + (w - 6) + " q3,0 3,3 v" + Math.max(h - 3, 0) + 'z"><title>Week ' + (i + 1) + ": " + v + " minutes</title></path>"; }
+      s += '<rect class="hit" x="' + (L + i * bw) + '" y="' + T + '" width="' + bw + '" height="' + (H - T - B) + '"><title>Week ' + (i + 1) + ": " + v + " minutes</title></rect>";
+      s += '<text x="' + (L + i * bw + bw / 2) + '" y="' + (H - 8) + '" text-anchor="middle"' + ((i + 1) === curWeek ? ' class="strong"' : "") + ">W" + (i + 1) + "</text>";
+    });
+    s += '<line class="axis" x1="' + L + '" x2="' + (W - R) + '" y1="' + (H - B) + '" y2="' + (H - B) + '"/>';
+    s += '<line class="ref" x1="' + L + '" x2="' + (W - R) + '" y1="' + y(PLAN_WEEK_MIN) + '" y2="' + y(PLAN_WEEK_MIN) + '"/>';
+    var cv = wm[curWeek - 1];
+    s += '<text class="strong" x="' + (L + (curWeek - 1) * bw + bw / 2) + '" y="' + (y(cv) - 5) + '" text-anchor="middle">' + cv + "</text>";
+    return s + "</svg>";
+  }
+
+  var flashStage = null;
+  function flashChart(){
+    var fs = flashSessions();
+    var stages = [];
+    fs.forEach(function(e){ if(stages.indexOf(e.flash.stage) < 0){ stages.push(e.flash.stage); } });
+    stages.sort();
+    if(!fs.length){ $("inStageChips").innerHTML = ""; return '<p class="in-empty">Log flashcards to see your speed by stage.</p>'; }
+    if(stages.indexOf(flashStage) < 0){ flashStage = fs[fs.length - 1].flash.stage; }
+    $("inStageChips").innerHTML = stages.map(function(s){ return '<button type="button" class="lg-chip" data-stage="' + s + '" aria-pressed="' + (s === flashStage) + '">Stage ' + s + "</button>"; }).join("");
+    var pts = fs.filter(function(e){ return e.flash.stage === flashStage; });
+    var W = 320, H = 170, L = 30, R = 10, T = 12, B = 24;
+    var vals = [FLASH_TARGET];
+    pts.forEach(function(e){ if(e.flash.correct != null){ vals.push(e.flash.correct); } if(e.flash.ntk != null){ vals.push(e.flash.ntk); } });
+    var max = Math.ceil(Math.max.apply(null, vals) * 1.15 / 10) * 10;
+    function x(i){ return pts.length === 1 ? (L + W - R) / 2 : L + (W - L - R) * i / (pts.length - 1); }
+    function y(v){ return T + (H - T - B) * (1 - v / max); }
+    var s = '<div class="in-legend"><span><i></i>Correct in 60s</span><span><i class="dash"></i>Note-to-key</span></div>';
+    s += '<svg class="lg-chart" viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="Flashcard results over time for stage ' + flashStage + '">';
+    for(var g = 0; g <= max; g += (max > 60 ? 20 : 10)){ s += '<line class="grid" x1="' + L + '" x2="' + (W - R) + '" y1="' + y(g) + '" y2="' + y(g) + '"/><text x="' + (L - 6) + '" y="' + (y(g) + 4) + '" text-anchor="end">' + g + "</text>"; }
+    s += '<line class="ref" x1="' + L + '" x2="' + (W - R) + '" y1="' + y(FLASH_TARGET) + '" y2="' + y(FLASH_TARGET) + '"/>';
+    s += '<text x="' + (L + 4) + '" y="' + (y(FLASH_TARGET) - 4) + '">target 40</text>';
+    function line(key, cls, dot){
+      var p = [];
+      pts.forEach(function(e, i){ if(e.flash[key] != null){ p.push([x(i), y(e.flash[key]), e]); } });
+      if(!p.length){ return ""; }
+      var out = p.length > 1 ? '<polyline class="' + cls + '" points="' + p.map(function(q){ return q[0].toFixed(1) + "," + q[1].toFixed(1); }).join(" ") + '"/>' : "";
+      p.forEach(function(q){ out += '<circle class="' + dot + '" cx="' + q[0].toFixed(1) + '" cy="' + q[1].toFixed(1) + '" r="4"><title>' + shortDate(q[2].date) + ": " + q[2].flash[key] + (key === "correct" ? " correct, " + (q[2].flash.errors || 0) + " errors" : " note-to-key") + "</title></circle>"; });
+      var lastP = p[p.length - 1];
+      out += '<text class="strong" x="' + Math.min(lastP[0] + 6, W - R - 2) + '" y="' + (lastP[1] - 7) + '" text-anchor="end">' + lastP[2].flash[key] + "</text>";
+      return out;
+    }
+    s += line("ntk", "l2", "d2") + line("correct", "l1", "d1");
+    s += '<text x="' + L + '" y="' + (H - 6) + '">' + shortDate(pts[0].date) + "</text>";
+    if(pts.length > 1){ s += '<text x="' + (W - R) + '" y="' + (H - 6) + '" text-anchor="end">' + shortDate(pts[pts.length - 1].date) + "</text>"; }
+    s += "</svg>";
+    var good = pts.filter(function(e){ return atTarget(e.flash); }).length;
+    return s + '<p class="in-cap">' + pts.length + " session" + (pts.length === 1 ? "" : "s") + " at stage " + flashStage + ", " + good + " at target.</p>";
+  }
+  $("inStageChips").addEventListener("click", function(e){
+    var b = e.target.closest("[data-stage]");
+    if(!b){ return; }
+    flashStage = +b.dataset.stage;
+    $("inFlashChart").innerHTML = flashChart();
+  });
+
+  function rateRows(title, groups){
+    var keys = Object.keys(groups);
+    if(!keys.length){ return ""; }
+    keys.sort(function(a, b){ return groups[b].n - groups[a].n; });
+    return "<h4>" + title + "</h4>" + keys.slice(0, 6).map(function(k){
+      var g = groups[k], p = pct(g.c, g.n);
+      return '<div class="in-bar"><span>' + esc(k) + '</span><span class="tr" aria-hidden="true"><i style="width:' + p + '%"></i></span><span class="n">' + p + "% <span style=\"color:var(--muted);font-weight:400\">(" + g.c + "/" + g.n + ")</span></span></div>";
+    }).join("");
+  }
+  function sightBox(){
+    var byR = {}, byK = {}, byT = {}, total = 0;
+    log.entries.forEach(function(e){
+      if(!e.sight || !e.sight.ex){ return; }
+      e.sight.ex.forEach(function(r){
+        total++;
+        var ok = r === "clean" ? 1 : 0;
+        [[byR, e.sight.rung ? "Rung " + e.sight.rung : "No rung"], [byK, e.sight.key || "No key"], [byT, e.sight.time || "No time sig."]].forEach(function(pair){
+          var g = pair[0][pair[1]] || (pair[0][pair[1]] = { c: 0, n: 0 });
+          g.n++; g.c += ok;
+        });
+      });
+    });
+    if(!total){ return '<p class="in-empty">Log sight-reading excerpts to see clean rates.</p>'; }
+    return '<div class="in-bars">' + rateRows("By rung", byR) + rateRows("By key", byK) + rateRows("By time signature", byT) + "</div>";
+  }
+
+  function failedBox(){
+    var html = "";
+    ["p1", "p2"].forEach(function(p){
+      var list = failCounts(p).slice(0, 5);
+      html += '<h4 style="font-family:var(--f-mono);font-size:.64rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:400;margin:10px 0 0">' + esc(pieceName(p)) + "</h4>";
+      html += list.length ? '<ul class="in-fail">' + list.map(function(x){
+        return "<li><span>m. " + x.m + (x.n >= 3 ? '<span class="in-flag">3+ fails</span>' : "") + "</span><span>failed " + x.n + "&times;</span></li>";
+      }).join("") + "</ul>" : '<p class="in-empty">No failed measures logged.</p>';
+    });
+    return html;
+  }
+
+  function drawBox(){
+    var cp = nextCheckpoint();
+    var html = '<div class="in-draw">';
+    ["p1", "p2"].forEach(function(p){
+      var lt = lastTen(p);
+      var need = cp ? cp.need : 10;
+      html += '<div><div class="row"><span>' + esc(pieceName(p)) + "</span><span><b>" + lt.clean + "/" + lt.n + "</b> clean</span></div>";
+      html += '<div class="in-meter" role="img" aria-label="' + lt.clean + " of " + lt.n + " clean, target " + need + ' of 10"><i class="' + (lt.clean >= need ? "" : "low") + '" style="width:' + (lt.clean * 10) + '%"></i><s style="left:calc(' + (need * 10) + '% - 1px)"></s></div></div>';
+    });
+    html += "</div>";
+    var cap = cp ? cp.label + ": " + cp.need + " of the last 10 clean, by " + shortDate(cp.date) + ". The dark mark is the target." : "Both checkpoints have passed. Keep 10 of 10.";
+    if(!log.draws.length){ cap = "Use the Clean and Failed buttons on the random-measure tool in the Toolkit. " + cap; }
+    return html + '<p class="in-cap">' + cap + "</p>";
+  }
+
+  function renderInsights(){
+    var has = log.entries.length || log.draws.length;
+    $("inEmpty").hidden = !!has;
+    $("inBody").hidden = !has;
+    if(!has){ return; }
+    var map = dayMap();
+
+    var checks = paceChecks(map);
+    var known = checks.filter(function(c){ return c.ok !== null; });
+    var behind = known.filter(function(c){ return c.ok === false; }).length;
+    var tile = $("inPaceTile");
+    tile.classList.remove("good", "warn");
+    if(known.length < 2){ $("inPace").textContent = "Too early"; $("inPaceS").textContent = "Log a few more days"; }
+    else if(behind === 0){ $("inPace").textContent = "On pace"; $("inPaceS").textContent = "All " + known.length + " checks pass"; tile.classList.add("good"); }
+    else { $("inPace").textContent = behind === 1 ? "Slightly behind" : "Behind"; $("inPaceS").textContent = behind + " of " + known.length + " checks behind"; tile.classList.add("warn"); }
+    $("inPaceList").innerHTML = checks.map(function(c){
+      var st = c.ok === null ? '<span class="st na">n/a</span>' : (c.ok ? '<span class="st">OK</span>' : '<span class="st no">Behind</span>');
+      return "<li>" + st + "<span>" + esc(c.text) + "</span></li>";
+    }).join("");
+
+    var sk = streak(map);
+    $("inStreak").textContent = sk;
+    $("inStreakS").textContent = (sk === 1 ? "day" : "days") + " in a row. 1 rest day a week is fine.";
+    var wm = weekMinutes();
+    $("inWeek").textContent = wm[curWeek - 1];
+    $("inWeekS").textContent = "of " + PLAN_WEEK_MIN + " min, week " + curWeek;
+
+    var a = lastTen("p1"), b = lastTen("p2");
+    if(a.n + b.n){ $("inDraws").textContent = (a.clean + b.clean) + "/" + (a.n + b.n); $("inDrawsS").textContent = "clean, last 10 per piece"; }
+    else { $("inDraws").textContent = "None"; $("inDrawsS").textContent = "no draws logged yet"; }
+
+    var next = workNext(map);
+    $("inNext").innerHTML = next.length ? next.map(function(it){ return "<li><b>" + esc(it.title) + "</b>" + esc(it.why) + "</li>"; }).join("")
+      : '<li class="calm"><b>Nothing urgent</b>Follow this week&rsquo;s plan.</li>';
+
+    $("inMinChart").innerHTML = minutesChart(wm) + '<p class="in-cap">Week ' + curWeek + " so far: " + wm[curWeek - 1] + " minutes.</p>";
+    $("inFlashChart").innerHTML = flashChart();
+    $("inSight").innerHTML = sightBox();
+    $("inFailed").innerHTML = failedBox();
+    $("inDrawBox").innerHTML = drawBox();
+  }
+
+  function renderAll(){
+    renderRecent();
+    renderInsights();
+    $("lgLastExp").textContent = log.meta.lastExport ? dayName(log.meta.lastExport.slice(0, 10)) : "never";
+    all(".lg-p2name").forEach(function(el){ el.textContent = p2Name(); });
+  }
+
+  /* Keep piece names in sync when Piece II is renamed. */
+  $("p2form").addEventListener("submit", function(){ window.setTimeout(renderAll, 0); });
+  $("p2reset").addEventListener("click", function(){ window.setTimeout(renderAll, 0); });
+
+  /* ---------- export / import ---------- */
+  function buildExport(){
+    return {
+      app: "ear-to-page", format: 1, exportedAt: new Date().toISOString(),
+      checklist: parseJSON(rawGet(CHECK_KEY)) || {},
+      piece2: parseJSON(rawGet(P2_KEY)),
+      log: log
+    };
+  }
+  $("lgExport").addEventListener("click", function(){
+    log.meta.lastExport = iso(today) + "T" + new Date().toTimeString().slice(0, 8);
+    saveLog();
+    var text = JSON.stringify(buildExport(), null, 1);
+    var ta = $("lgJson");
+    ta.value = text; ta.hidden = false; $("lgCopy").hidden = false;
+    try{
+      var blob = new Blob([text], { type: "application/json" });
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "ear-to-page-" + todayISO + ".json";
+      document.body.appendChild(a); a.click(); a.remove();
+      window.setTimeout(function(){ URL.revokeObjectURL(a.href); }, 4000);
+    }catch(e){ /* downloads blocked: the text box and Copy still work */ }
+    renderAll();
+    toast("Exported. If no file downloaded, use Copy.");
+  });
+  $("lgCopy").addEventListener("click", function(){
+    var ta = $("lgJson");
+    function fallback(){ ta.focus(); ta.select(); toast("Selected. Copy it with your keyboard or the share menu."); }
+    try{
+      navigator.clipboard.writeText(ta.value).then(function(){ toast("Copied."); }, fallback);
+    }catch(e){ fallback(); }
+  });
+  $("lgImportShow").addEventListener("click", function(){
+    var box = $("lgImportBox");
+    box.hidden = !box.hidden;
+    this.setAttribute("aria-expanded", box.hidden ? "false" : "true");
+  });
+  $("lgFile").addEventListener("change", function(){
+    var f = this.files && this.files[0];
+    if(!f){ return; }
+    var r = new FileReader();
+    r.onload = function(){ $("lgPaste").value = String(r.result || ""); toast("File loaded. Tap Import now."); };
+    r.readAsText(f);
+  });
+
+  function twoTap(btn, idle, armedText, run){
+    var armed = false, t = null;
+    btn.addEventListener("click", function(){
+      if(!armed){
+        armed = true; btn.classList.add("armed"); btn.textContent = armedText;
+        t = window.setTimeout(function(){ armed = false; btn.classList.remove("armed"); btn.textContent = idle; }, 4000);
+        return;
+      }
+      window.clearTimeout(t); armed = false; btn.classList.remove("armed"); btn.textContent = idle;
+      run();
+    });
+  }
+
+  twoTap($("lgImport"), "Import now", "Tap again to replace your data", function(){
+    var data = parseJSON($("lgPaste").value.trim());
+    if(!data || typeof data !== "object" || (data.app !== "ear-to-page" && !data.log)){ toast("That does not look like an Ear to Page export."); return; }
+    /* Checklist: set each box and fire its change event, so the page's own code saves it. */
+    if(data.checklist && typeof data.checklist === "object"){
+      all('input[type="checkbox"]').forEach(function(b){
+        if(!b.dataset.key){ return; }
+        var want = !!data.checklist[b.dataset.key];
+        if(b.checked !== want){ b.checked = want; b.dispatchEvent(new Event("change", { bubbles: true })); }
+      });
+    }
+    /* Piece II: fill the existing form and submit it, so the page's own rename code runs. */
+    if(data.piece2 && data.piece2.title){
+      $("p2title").value = data.piece2.title;
+      $("p2composer").value = data.piece2.composer || "";
+      var f = $("p2form");
+      if(f.requestSubmit){ f.requestSubmit(); } else { f.dispatchEvent(new Event("submit", { cancelable: true })); }
+    }
+    if(data.log){ log = migrate(data.log); saveLog(); }
+    prefill(); renderAll();
+    $("lgPaste").value = "";
+    toast("Import done.");
+  });
+
+  twoTap($("lgClear"), "Clear log", "Tap again to clear the log", function(){
+    var keep = log.meta.lastExport;
+    log = emptyLog(); log.meta.lastExport = keep;
+    saveLog(); prefill(); renderAll();
+    toast("Log cleared. Your checklist is untouched.");
+  });
+
+  prefill();
+  renderAll();
 })();
 </script>
 
